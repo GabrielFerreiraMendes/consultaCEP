@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xmlcep>
+  <enderecos>
+    <endereco>
+      <cep>74565-220</cep>
+      <logradouro>Rua Atlético Goianiense - 1937</logradouro>
+      <complemento></complemento>
+      <unidade></unidade>
+      <bairro>Setor Urias Magalhães</bairro>
+      <localidade>Goiânia</localidade>
+      <uf>GO</uf>
+      <estado>Goiás</estado>
+      <regiao>Centro-Oeste</regiao>
+      <ibge>5208707</ibge>
+      <gia></gia>
+      <ddd>62</ddd>
+      <siafi>9373</siafi>
+    </endereco>
+  </enderecos>
+</xmlcep>

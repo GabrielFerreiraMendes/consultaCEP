@@ -1,0 +1,166 @@
+object dmPrincipal: TdmPrincipal
+  Height = 480
+  Width = 640
+  object FDConnection1: TFDConnection
+    Params.Strings = (
+      'Database=consultacep'
+      'User_Name=root'
+      'Password=masterkey'
+      'DriverID=MySQL')
+    Connected = True
+    Left = 176
+    Top = 104
+  end
+  object FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink
+    VendorLib = 
+      'C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\lib\LIBMYSQL.DL' +
+      'L'
+    Left = 176
+    Top = 40
+  end
+  object FDQuery1: TFDQuery
+    Connection = FDConnection1
+    SQL.Strings = (
+      'SELECT * FROM ENDERECOS;')
+    Left = 520
+    Top = 192
+  end
+  object DataSource1: TDataSource
+    DataSet = FDQuery1
+    Left = 520
+    Top = 128
+  end
+  object RESTRequest1: TRESTRequest
+    Client = RESTClient1
+    Params = <
+      item
+        Kind = pkURLSEGMENT
+        Name = 'uf'
+        Value = 'GO'
+        ContentTypeStr = 'ctNone'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'cidade'
+        Value = 'Goi'#226'nia'
+        ContentTypeStr = 'ctNone'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'endereco'
+        Value = 'Rua+Atl'#233'tico+Goiani'#234'nse'
+        ContentTypeStr = 'ctNone'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'type'
+        Value = 'xml'
+        ContentTypeStr = 'ctNone'
+      end>
+    Response = RESTResponse1
+    SynchronizedEvents = False
+    Left = 328
+    Top = 272
+  end
+  object RESTClient1: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://viacep.com.br/ws/{uf}/{cidade}/{endereco}/{type}'
+    Params = <
+      item
+        Kind = pkURLSEGMENT
+        Name = 'uf'
+        Options = [poAutoCreated]
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'cidade'
+        Options = [poAutoCreated]
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'endereco'
+        Options = [poAutoCreated]
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'type'
+        Options = [poAutoCreated]
+      end>
+    SynchronizedEvents = False
+    Left = 328
+    Top = 336
+  end
+  object RESTResponse1: TRESTResponse
+    ContentType = 'application/xhtml+xml'
+    Left = 328
+    Top = 208
+  end
+  object ViaCepComponent1: TViaCepComponent
+    Left = 496
+    Top = 336
+  end
+  object RESTClient2: TRESTClient
+    Accept = 'application/json, text/plain; q=0.9, text/html;q=0.8,'
+    AcceptCharset = 'utf-8, *;q=0.8'
+    BaseURL = 'https://viacep.com.br/ws/{uf}/{cidade}/{endereco}/{type}'
+    Params = <
+      item
+        Kind = pkURLSEGMENT
+        Name = 'uf'
+        Options = [poAutoCreated]
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'cidade'
+        Options = [poAutoCreated]
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'endereco'
+        Options = [poAutoCreated]
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'type'
+        Options = [poAutoCreated]
+      end>
+    SynchronizedEvents = False
+    Left = 64
+    Top = 296
+  end
+  object RESTRequest2: TRESTRequest
+    AssignedValues = [rvConnectTimeout, rvReadTimeout]
+    Client = RESTClient2
+    Params = <
+      item
+        Kind = pkURLSEGMENT
+        Name = 'uf'
+        Value = 'GO'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'cidade'
+        Value = 'Goi'#226'nia'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'endereco'
+        Value = 'Rua+Atl'#233'tico+Goiani'#234'nse'
+      end
+      item
+        Kind = pkURLSEGMENT
+        Name = 'type'
+        Value = 'xml'
+      end>
+    Response = RESTResponse2
+    SynchronizedEvents = False
+    Left = 64
+    Top = 216
+  end
+  object RESTResponse2: TRESTResponse
+    ContentType = 'application/xhtml+xml'
+    Left = 64
+    Top = 368
+  end
+end

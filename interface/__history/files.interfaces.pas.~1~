@@ -1,0 +1,17 @@
+unit files.ingerfaces;
+
+interface
+
+uses System.JSON, XMLDoc;
+
+type
+  iConversao = interface
+    function toJSON(): TJSONObject;
+    function fromJSON():  TObject;
+    function toXML(): TXMLDocument;
+    function fromXML(): TObject;
+  end;
+
+implementation
+
+end.

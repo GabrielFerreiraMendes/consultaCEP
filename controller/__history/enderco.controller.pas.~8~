@@ -1,0 +1,39 @@
+unit enderco.controller;
+
+interface
+
+uses files.interfaces, endereco.model, FireDAC.Comp.Client, dtPrincipal;
+
+type
+  TEnderecoController = class
+  public
+    procedure save(obj: iFiles);
+  end;
+
+implementation
+
+{ TEnderecoController }
+
+procedure TEnderecoController.save(obj: iFiles);
+var
+  ed: TEndereco;
+  qry: TFDQuery;
+begin
+  qry := TFDQuery.Create(nil);
+
+  try
+    ed := TEndereco(obj);
+
+    qry.Connection := dmPrincipal.FDConnection1;
+
+    qry.Close;
+    qry.SQL.Clear;
+    qry.SQL.Add('');
+
+  finally
+
+  end;
+
+end;
+
+end.

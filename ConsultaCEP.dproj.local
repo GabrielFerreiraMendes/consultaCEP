@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/10/03 12:23:53.000.881,=C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 18:13:07.000.072,=C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 18:14:08.000.772,C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\vPrincipal.dfm</Transaction>
+    <Transaction>2024/10/17 18:14:08.000.772,C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\vPrincipal.pas</Transaction>
+    <Transaction>2024/10/17 18:14:19.000.399,C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\ConsultaCEP.dproj</Transaction>
+    <Transaction>2024/10/17 18:22:35.000.064,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 18:22:53.000.409,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.dfm=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\data\dtPrincipal.dfm</Transaction>
+    <Transaction>2024/10/17 18:22:53.000.409,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\data\dtPrincipal.pas</Transaction>
+    <Transaction>2024/10/17 18:38:44.000.407,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit2.pas</Transaction>
+    <Transaction>2024/10/17 18:39:00.000.861,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit2.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\vCadastroEndereco.pas</Transaction>
+    <Transaction>2024/10/17 18:39:00.000.861,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit2.dfm=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\vCadastroEndereco.dfm</Transaction>
+    <Transaction>2024/10/17 18:51:37.000.571,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 18:51:59.000.339,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\model\mEndereco.pas</Transaction>
+    <Transaction>2024/10/17 19:32:37.000.435,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 19:32:55.000.336,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\service\sEndereco.pas</Transaction>
+    <Transaction>2024/10/17 22:28:46.000.402,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 22:33:15.000.203,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\interface\files.ingerfaces.pas</Transaction>
+    <Transaction>2024/10/17 22:34:18.000.729,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\interface\files.interfaces.pas=</Transaction>
+    <Transaction>2024/10/17 22:34:23.000.070,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\interface\files.interfaces.pas</Transaction>
+    <Transaction>2024/10/17 22:41:38.000.811,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\model\mEndereco.pas=</Transaction>
+    <Transaction>2024/10/17 22:41:55.000.214,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\model\endereco.model.pas</Transaction>
+    <Transaction>2024/10/17 22:42:40.000.218,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\service\sEndereco.pas=</Transaction>
+    <Transaction>2024/10/17 22:43:20.000.640,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/17 22:43:41.000.797,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\controller\enderco.controller.pas</Transaction>
+    <Transaction>2024/10/17 23:04:00.000.893,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\controller\enderco.controller.pas=</Transaction>
+    <Transaction>2024/10/17 23:04:19.000.909,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\controller\endereco.controller.pas</Transaction>
+    <Transaction>2024/10/19 13:59:52.000.631,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/19 14:00:18.000.924,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\servico\endereco.service.pas</Transaction>
+    <Transaction>2024/10/19 14:00:45.000.839,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\service\endereco.service.pas</Transaction>
+    <Transaction>2024/10/19 23:20:32.438,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\vPrincipal.pas=</Transaction>
+    <Transaction>2024/10/19 23:21:08.411,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\pricipal.view.pas</Transaction>
+    <Transaction>2024/10/19 23:21:43.985,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\vCadastroEndereco.pas=</Transaction>
+    <Transaction>2024/10/19 23:22:04.131,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\cadastro.view.pas</Transaction>
+    <Transaction>2024/10/19 23:23:07.766,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\cadastro.view.pas=</Transaction>
+    <Transaction>2024/10/19 23:24:05.475,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\view\cadastro.view.pas</Transaction>
+  </Transactions>
+</BorlandProject>

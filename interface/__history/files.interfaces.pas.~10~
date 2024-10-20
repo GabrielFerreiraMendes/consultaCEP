@@ -1,0 +1,17 @@
+unit files.interfaces;
+
+interface
+
+uses System.JSON, XMLDoc;
+
+type
+  iFiles = interface
+    function toJSON(): TJSONObject;
+    procedure fromJSON(JSON: TJSONObject);
+    function toXML(): TXMLDocument;
+    procedure fromXML(XML: TXMLDocument);
+  end;
+
+implementation
+
+end.
