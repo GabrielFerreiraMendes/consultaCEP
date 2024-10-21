@@ -1,0 +1,19 @@
+unit parametro.records;
+
+interface
+
+uses FireDAC.Comp.Client;
+
+type
+ TParametroRecord = record
+  CEP: String;
+  Uf: String;
+  Cidade: String;
+  Endereco: String;
+  Connection: TFDConnection;
+  AClass: TClass;
+ end;
+
+implementation
+
+end.

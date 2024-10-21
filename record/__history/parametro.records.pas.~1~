@@ -1,0 +1,12 @@
+unit parametro.records;
+
+interface
+
+type
+ TParametro = record
+
+ end;
+
+implementation
+
+end.

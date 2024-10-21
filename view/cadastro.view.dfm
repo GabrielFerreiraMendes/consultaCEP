@@ -41,12 +41,15 @@ object frmCadastro: TfrmCadastro
       Height = 44
       Caption = ' CEP '
       TabOrder = 1
-      object edtCep: TEdit
+      object edtCep: TMaskEdit
         Left = 10
         Top = 16
-        Width = 100
+        Width = 99
         Height = 23
+        EditMask = '00000\-000;0;'
+        MaxLength = 9
         TabOrder = 0
+        Text = ''
       end
     end
     object GroupBox3: TGroupBox
@@ -61,6 +64,7 @@ object frmCadastro: TfrmCadastro
         Top = 16
         Width = 280
         Height = 23
+        MaxLength = 45
         TabOrder = 0
       end
     end
@@ -76,6 +80,7 @@ object frmCadastro: TfrmCadastro
         Top = 16
         Width = 532
         Height = 23
+        MaxLength = 45
         TabOrder = 0
       end
     end
@@ -91,6 +96,7 @@ object frmCadastro: TfrmCadastro
         Top = 16
         Width = 280
         Height = 23
+        MaxLength = 45
         TabOrder = 0
       end
     end
@@ -115,6 +121,7 @@ object frmCadastro: TfrmCadastro
         Top = 16
         Width = 100
         Height = 23
+        MaxLength = 45
         TabOrder = 0
       end
     end

@@ -1,0 +1,14 @@
+unit parametro.records;
+
+interface
+
+type
+ TParametroRecord = record
+  CEP: String;
+  Uf: String;
+
+ end;
+
+implementation
+
+end.

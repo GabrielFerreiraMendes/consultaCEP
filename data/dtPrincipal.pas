@@ -9,7 +9,7 @@ uses
   FireDAC.Phys.MySQLDef, FireDAC.Phys.MySQL, Data.DB, FireDAC.Comp.Client,
   FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
   FireDAC.Comp.DataSet, REST.Types, REST.Client, Data.Bind.Components,
-  Data.Bind.ObjectScope, viaCEP.component;
+  Data.Bind.ObjectScope, viaCEP.component, System.MaskUtils;
 
 type
   TdmPrincipal = class(TDataModule)
@@ -17,9 +17,21 @@ type
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
     FDQuery1: TFDQuery;
     DataSource1: TDataSource;
+    FDQuery1codigo: TLargeintField;
+    FDQuery1cep: TStringField;
+    FDQuery1logradouro: TStringField;
+    FDQuery1complemento: TStringField;
+    FDQuery1bairro: TStringField;
+    FDQuery1localidade: TStringField;
+    FDQuery1uf: TStringField;
+    procedure FDQuery1cepGetText(Sender: TField; var Text: string;
+      DisplayText: Boolean);
   private
     { Private declarations }
   public
+    procedure StartTransaction;
+    procedure Commit;
+    procedure RollBack;
     { Public declarations }
   end;
 
@@ -29,7 +41,38 @@ var
 implementation
 
 {%CLASSGROUP 'Vcl.Controls.TControl'}
-
 {$R *.dfm}
+{ TdmPrincipal }
+
+procedure TdmPrincipal.Commit;
+begin
+  if not Self.FDConnection1.InTransaction then
+    raise Exception.Create('Não há transação ativa.');
+
+  Self.FDConnection1.Commit;
+end;
+
+procedure TdmPrincipal.FDQuery1cepGetText(Sender: TField; var Text: string;
+  DisplayText: Boolean);
+begin
+  Text := FormatMaskText('00000\-000;0;', Sender.AsString);
+end;
+
+procedure TdmPrincipal.RollBack;
+begin
+  if not Self.FDConnection1.InTransaction then
+    raise Exception.Create('Não há transação ativa.');
+
+  Self.FDConnection1.RollBack;
+end;
+
+procedure TdmPrincipal.StartTransaction;
+begin
+  { Permite transações aninhadas }
+  Self.FDConnection1.TxOptions.EnableNested := True;
+  Self.FDConnection1.TxOptions.AutoCommit := True;
+
+  Self.FDConnection1.StartTransaction;
+end;
 
 end.

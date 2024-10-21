@@ -20,8 +20,6 @@ object Form1: TForm1
     Height = 545
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 717
-    ExplicitHeight = 599
     object GroupBox2: TGroupBox
       Left = 10
       Top = 99
@@ -52,31 +50,37 @@ object Form1: TForm1
           item
             Expanded = False
             FieldName = 'cep'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'logradouro'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'complemento'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'bairro'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'localidade'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'uf'
+            Width = 64
             Visible = True
           end>
       end

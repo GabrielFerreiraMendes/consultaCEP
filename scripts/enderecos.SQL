@@ -1,9 +1,10 @@
-CREATE TABLE `consultacep`.`enderecos` (
-  `codigo` bigint NOT NULL auto_increment,
-  `cep` VARCHAR(45) NOT NULL,
-  `logradouro` VARCHAR(45) NULL,
-  `complemento` VARCHAR(45) NULL,
-  `bairro` VARCHAR(45) NULL,
-  `localidade` VARCHAR(45) NULL,
-  `uf` VARCHAR(2) NULL,
-  PRIMARY KEY (`codigo`));
+CREATE TABLE ENDERECOS (
+  CODIGO bigint NOT NULL auto_increment,
+  CEP VARCHAR(45) NOT NULL,
+  LOGRADOURO VARCHAR(45) NULL,
+  COMPLEMENTO VARCHAR(45) NULL,
+  BAIRRO VARCHAR(45) NULL,
+  LOCALIDADE VARCHAR(45) NULL,
+  UF VARCHAR(2) NULL,
+  PRIMARY KEY (CODIGO)
+);

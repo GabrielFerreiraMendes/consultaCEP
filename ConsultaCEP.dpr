@@ -2,13 +2,14 @@ program ConsultaCEP;
 
 uses
   Vcl.Forms,
-  dtPrincipal in 'data\dtPrincipal.pas' {dmPrincipal: TDataModule},
+  dtPrincipal in 'data\dtPrincipal.pas' {dmPrincipal: TDataModule} ,
   files.interfaces in 'interface\files.interfaces.pas',
   endereco.model in 'model\endereco.model.pas',
   endereco.controller in 'controller\endereco.controller.pas',
   endereco.service in 'service\endereco.service.pas',
-  pricipal.view in 'view\pricipal.view.pas' {Form1},
-  cadastro.view in 'view\cadastro.view.pas' {frmCadastro};
+  pricipal.view in 'view\pricipal.view.pas' {Form1} ,
+  cadastro.view in 'view\cadastro.view.pas' {frmCadastro} ,
+  parametro.records in 'record\parametro.records.pas';
 
 {$R *.res}
 
@@ -19,4 +20,5 @@ begin
   Application.CreateForm(TForm1, Form1);
   Application.CreateForm(TfrmCadastro, frmCadastro);
   Application.Run;
+
 end.

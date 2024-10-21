@@ -6,7 +6,8 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, System.MaskUtils, endereco.controller,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.Grids, Vcl.DBGrids,
-  Vcl.StdCtrls, Vcl.ExtCtrls, dtPrincipal, System.JSON, cadastro.view;
+  Vcl.StdCtrls, Vcl.ExtCtrls, dtPrincipal, System.JSON, cadastro.view,
+  parametro.records, XMLDoc, Xml.XMLIntf;
 
 type
   TForm1 = class(TForm)
@@ -22,7 +23,6 @@ type
     procedure rgChaveClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
   private
-    procedure operacaoJSON;
     { Private declarations }
   public
     { Public declarations }
@@ -40,47 +40,72 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.operacaoJSON();
+procedure TForm1.btnConsultarClick(Sender: TObject);
 var
   JSON: TJSONObject;
   vStl: TStringList;
+  param: TParametroRecord;
 begin
-  case rgChave.ItemIndex of
-    0:
-      begin
-        try
-         JSON := TEnderecoController.getByCEP(edtChave.Text,
-            dmPrincipal.FDConnection1);
+  vStl := TStringList.Create;
+  JSON := TJSONObject.Create;
 
-          if not Assigned(JSON) then
-           exit;
+  try
+    case rgChave.ItemIndex of
+      0:
+        begin
+          try
+            param.CEP := edtChave.Text;
+            param.Uf := EmptyStr;
+            param.Cidade := EmptyStr;
+            param.endereco := EmptyStr;
+            param.Connection := dmPrincipal.FDConnection1;
 
-          TfrmCadastro.Execute(JSON);
-          dmPrincipal.FDQuery1.Refresh;
-          dbgEndereco.SetFocus;
-        except
-          on e: Exception do
-          begin
-            MessageDlg(Format('O CEP %s não consta na base de CEPs válidos!',
-              [edtChave.Text]), mtError, [mbOK], 0);
+            case rgRetornoConsulta.ItemIndex of
+              0:
+                param.AClass := TJSONObject;
+
+              1:
+                param.AClass := TXMLDocument;
+            end;
+
+            JSON := TEnderecoController.getByCEP(param);
+            if not Assigned(JSON) then
+              exit;
+
+            TfrmCadastro.Execute(JSON);
+          except
+            on e: Exception do
+            begin
+              MessageDlg(Format('O CEP %s não consta na base de CEPs válidos!',
+                [edtChave.Text]), mtError, [mbOK], 0);
+            end;
           end;
         end;
-      end;
 
-    1:
-      begin
-        vStl := TStringList.Create;
-        try
+      1:
+        begin
           try
             vStl.Delimiter := '/';
             vStl.DelimitedText := StringReplace(edtChave.Text, ' ', '+',
               [rfReplaceAll, rfIgnoreCase]);
 
-            JSON := TEnderecoController.getByEndereco(vStl[0], vStl[1], vStl[2],
-              dmPrincipal.FDConnection1);
+            param.CEP := EmptyStr;
+            param.Uf := vStl[0];
+            param.Cidade := vStl[1];
+            param.endereco := vStl[2];
+            param.Connection := dmPrincipal.FDConnection1;
+
+            case rgRetornoConsulta.ItemIndex of
+              0:
+                param.AClass := TJSONObject;
+
+              1:
+                param.AClass := TXMLDocument;
+            end;
+
+            JSON := TEnderecoController.getByEndereco(param);
 
             TfrmCadastro.Execute(JSON);
-            dmPrincipal.FDQuery1.Refresh;
           except
             on e: Exception do
             begin
@@ -89,28 +114,14 @@ begin
                 [edtChave.Text]), mtError, [mbOK], 0);
             end;
           end;
-
-          dbgEndereco.SetFocus;
-        finally
-          FreeAndNil(vStl);
-          JSON.Free;
         end;
-      end;
-  end;
-end;
+    end;
 
-procedure TForm1.btnConsultarClick(Sender: TObject);
-begin
-  case rgRetornoConsulta.ItemIndex of
-    0:
-      begin
-        operacaoJSON;
-      end;
-
-    1:
-      begin
-
-      end;
+    dmPrincipal.FDQuery1.Refresh;
+    dbgEndereco.SetFocus;
+  finally
+    FreeAndNil(vStl);
+    JSON.Free;
   end;
 end;
 
@@ -122,12 +133,13 @@ begin
   dmPrincipal.FDQuery1.Open;
 
   { Aplica o melhor dimensionamento para as colunas
-    baseado no primeiro registro ou no tamanho do título da coluna }
+    baseado no primeiro registro ou no tamanho do header da coluna }
   for vIndex := 0 to dbgEndereco.Columns.Count - 1 do
   begin
     vColumnValue := dbgEndereco.Fields[vIndex].DisplayText;
 
-    if SameText(vColumnValue, EmptyStr) then
+    if Length(vColumnValue) < Length(dbgEndereco.Columns[vIndex].Title.Caption)
+    then
       vColumnValue := dbgEndereco.Columns[vIndex].Title.Caption;
 
     dbgEndereco.Columns[vIndex].width := 50 + dbgEndereco.Canvas.TextWidth
