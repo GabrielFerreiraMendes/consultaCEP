@@ -17,7 +17,6 @@ type
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
     FDQuery1: TFDQuery;
     DataSource1: TDataSource;
-    ViaCepComponent1: TViaCepComponent;
   private
     { Private declarations }
   public

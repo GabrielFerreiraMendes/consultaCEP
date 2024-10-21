@@ -1,9 +1,10 @@
 object Form1: TForm1
   Left = 0
   Top = 0
+  BorderStyle = bsDialog
   Caption = 'Form1'
-  ClientHeight = 599
-  ClientWidth = 717
+  ClientHeight = 545
+  ClientWidth = 710
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,10 +16,12 @@ object Form1: TForm1
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 717
-    Height = 599
+    Width = 710
+    Height = 545
     Align = alClient
     TabOrder = 0
+    ExplicitWidth = 717
+    ExplicitHeight = 599
     object GroupBox2: TGroupBox
       Left = 10
       Top = 99
@@ -78,35 +81,25 @@ object Form1: TForm1
           end>
       end
     end
-    object Button1: TButton
-      Left = 10
-      Top = 551
-      Width = 205
-      Height = 25
-      Caption = 'Consultar novo CEP/Endere'#231'o'
-      TabOrder = 1
-      OnClick = Button1Click
-    end
     object GroupBox1: TGroupBox
       Left = 10
       Top = 54
-      Width = 670
+      Width = 690
       Height = 44
       Caption = 'Filtro'
-      TabOrder = 2
+      TabOrder = 1
       object edtChave: TEdit
         Left = 10
         Top = 16
-        Width = 560
+        Width = 575
         Height = 23
         TabOrder = 0
         Text = 'edtChave'
-        OnClick = edtChaveClick
       end
       object btnConsultar: TButton
-        Left = 580
+        Left = 591
         Top = 16
-        Width = 80
+        Width = 90
         Height = 23
         Caption = 'Consultar'
         TabOrder = 1
@@ -118,13 +111,13 @@ object Form1: TForm1
       Top = 4
       Width = 300
       Height = 44
-      Caption = 'rgChave'
+      Caption = 'Chave da consulta'
       Columns = 2
       ItemIndex = 0
       Items.Strings = (
         'CEP'
         'Endere'#231'o Completo')
-      TabOrder = 3
+      TabOrder = 2
       OnClick = rgChaveClick
     end
     object rgRetornoConsulta: TRadioGroup
@@ -138,7 +131,7 @@ object Form1: TForm1
       Items.Strings = (
         'JSON'
         'XML')
-      TabOrder = 4
+      TabOrder = 3
     end
   end
 end

@@ -1,0 +1,15 @@
+unit files.interfaces;
+
+interface
+
+uses System.JSON, XMLDoc, Xml.XMLIntf;
+
+type
+  iFiles<T> = interface
+    function exportTo(): T;
+    procedure loadFrom(value: T);
+  end;
+
+implementation
+
+end.

@@ -1,0 +1,15 @@
+unit endereco.JSON.model;
+
+uses files.interfaces, System.JSON, XMLDoc, Xml.XMLIntf, System.SysUtils,
+  System.StrUtils, System.Variants, endereco.model;
+
+interface
+
+type
+ TEnderecoJSON = class(TEndereco, TInterfacedObject, <TJSONObject>)
+
+ end;
+
+implementation
+
+end.

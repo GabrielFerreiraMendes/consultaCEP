@@ -13,18 +13,16 @@ type
     Panel1: TPanel;
     GroupBox2: TGroupBox;
     dbgEndereco: TDBGrid;
-    Button1: TButton;
     GroupBox1: TGroupBox;
     edtChave: TEdit;
     btnConsultar: TButton;
     rgChave: TRadioGroup;
     rgRetornoConsulta: TRadioGroup;
-    procedure Button1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure rgChaveClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
-    procedure edtChaveClick(Sender: TObject);
   private
+    procedure operacaoJSON;
     { Private declarations }
   public
     { Public declarations }
@@ -42,7 +40,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.btnConsultarClick(Sender: TObject);
+procedure TForm1.operacaoJSON();
 var
   JSON: TJSONObject;
   vStl: TStringList;
@@ -51,7 +49,12 @@ begin
     0:
       begin
         try
-          JSON := TEnderecoController.getByCEP(edtChave.text);
+         JSON := TEnderecoController.getByCEP(edtChave.Text,
+            dmPrincipal.FDConnection1);
+
+          if not Assigned(JSON) then
+           exit;
+
           TfrmCadastro.Execute(JSON);
           dmPrincipal.FDQuery1.Refresh;
           dbgEndereco.SetFocus;
@@ -59,7 +62,7 @@ begin
           on e: Exception do
           begin
             MessageDlg(Format('O CEP %s não consta na base de CEPs válidos!',
-              [edtChave.text]), mtError, [mbOK], 0);
+              [edtChave.Text]), mtError, [mbOK], 0);
           end;
         end;
       end;
@@ -70,21 +73,24 @@ begin
         try
           try
             vStl.Delimiter := '/';
-            vStl.DelimitedText := StringReplace(edtChave.text, ' ', '+',
+            vStl.DelimitedText := StringReplace(edtChave.Text, ' ', '+',
               [rfReplaceAll, rfIgnoreCase]);
 
-            JSON := TEnderecoController.getByEndereco(vStl[0], vStl[1],
-              vStl[2]);
+            JSON := TEnderecoController.getByEndereco(vStl[0], vStl[1], vStl[2],
+              dmPrincipal.FDConnection1);
+
             TfrmCadastro.Execute(JSON);
             dmPrincipal.FDQuery1.Refresh;
-            dbgEndereco.SetFocus;
           except
             on e: Exception do
             begin
-              MessageDlg(Format('O CEP %s não consta na base de CEPs válidos!',
-                [edtChave.text]), mtError, [mbOK], 0);
+              MessageDlg
+                (Format('O endereço %s não consta na base de endereços válidos!',
+                [edtChave.Text]), mtError, [mbOK], 0);
             end;
           end;
+
+          dbgEndereco.SetFocus;
         finally
           FreeAndNil(vStl);
           JSON.Free;
@@ -93,16 +99,19 @@ begin
   end;
 end;
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.btnConsultarClick(Sender: TObject);
 begin
-  TfrmCadastro.Execute;
-  dmPrincipal.FDQuery1.Refresh;
-end;
+  case rgRetornoConsulta.ItemIndex of
+    0:
+      begin
+        operacaoJSON;
+      end;
 
-procedure TForm1.edtChaveClick(Sender: TObject);
-begin
-  edtChave.SelStart := 0;
-  edtChave.SelLength := Length(edtChave.text) + 1;
+    1:
+      begin
+
+      end;
+  end;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
@@ -134,14 +143,18 @@ begin
     0:
       begin
         edtChave.NumbersOnly := true;
-        edtChave.text := KEY_CEP_TEXT;
+        edtChave.Text := KEY_CEP_TEXT;
       end;
     1:
       begin
         edtChave.NumbersOnly := false;
-        edtChave.text := KEY_END_TEXT;
+        edtChave.Text := KEY_END_TEXT;
       end;
   end;
+
+  edtChave.SelStart := 0;
+  edtChave.SelLength := Length(edtChave.Text) + 1;
+  edtChave.SetFocus;
 end;
 
 end.

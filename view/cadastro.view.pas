@@ -21,12 +21,14 @@ type
     edtComplemento: TEdit;
     GroupBox5: TGroupBox;
     edtBairro: TEdit;
-    Button1: TButton;
+    btnSalvar: TButton;
     GroupBox7: TGroupBox;
     edtLocalidade: TEdit;
     GroupBox6: TGroupBox;
     edtCodigo: TEdit;
-    procedure Button1Click(Sender: TObject);
+    btnCancelar: TButton;
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
   private
     FMainObject: TEndereco;
     procedure setFields(JSON: TJSONObject);
@@ -35,9 +37,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-
-    class procedure Execute(); overload;
-    class procedure Execute(JSON: TJSONObject); overload;
+    class procedure Execute(JSON: TJSONObject);
   end;
 
 var
@@ -48,9 +48,14 @@ implementation
 {$R *.dfm}
 { TfrmCadastroEndereco }
 
-procedure TfrmCadastro.Button1Click(Sender: TObject);
+procedure TfrmCadastro.btnCancelarClick(Sender: TObject);
 begin
-  TEnderecoController.save(Self.getFields);
+  Self.Close;
+end;
+
+procedure TfrmCadastro.btnSalvarClick(Sender: TObject);
+begin
+  TEnderecoController.save(Self.getFields, dmPrincipal.FDConnection1);
   Self.Close;
 end;
 
@@ -62,20 +67,6 @@ begin
 
   try
     form.setFields(JSON);
-    form.ShowModal;
-  finally
-    FreeAndNil(form);
-  end;
-end;
-
-class procedure TfrmCadastro.Execute;
-var
-  form: TfrmCadastro;
-begin
-  form := TfrmCadastro.Create(nil);
-
-  try
-    form.MainObject := TEndereco.Create;
     form.ShowModal;
   finally
     FreeAndNil(form);
@@ -96,7 +87,12 @@ end;
 
 procedure TfrmCadastro.setFields(JSON: TJSONObject);
 begin
-  edtCodigo.Text := JSON.GetValue<String>('codigo');
+  try
+    edtCodigo.Text := JSON.GetValue<String>('codigo');
+  except
+    edtCodigo.Text := EmptyStr;
+  end;
+
   edtCep.Text := JSON.GetValue<String>('cep');
   edtLogradouro.Text := JSON.GetValue<String>('logradouro');
   edtComplemento.Text := JSON.GetValue<String>('complemento');

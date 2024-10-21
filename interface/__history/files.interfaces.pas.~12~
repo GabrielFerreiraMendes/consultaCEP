@@ -1,0 +1,17 @@
+unit files.interfaces;
+
+interface
+
+uses System.JSON, XMLDoc, Xml.XMLIntf;
+
+type
+  iFiles = interface
+    function toJSON(): TJSONObject;
+    function toXML(): TXMLDocument;
+    procedure loadFrom(JSON: TJSONObject); overload;
+    procedure loadFrom(XML: IXMLDocument); overload;
+  end;
+
+implementation
+
+end.

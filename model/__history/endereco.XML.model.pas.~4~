@@ -1,0 +1,71 @@
+unit endereco.XML.model;
+
+interface
+
+uses files.interfaces, System.JSON, XMLDoc, Xml.XMLIntf, System.SysUtils,
+  System.StrUtils, System.Variants, endereco.model;
+
+type
+  TEnderecoXML = class(TEndereco, iFiles<IXMLDocument>)
+    function exportTo(): IXMLDocument;
+    procedure loadFrom(value: IXMLDocument);
+  end;
+
+implementation
+
+{ TEnderecoXML }
+
+function TEnderecoXML.exportTo: IXMLDocument;
+begin
+
+end;
+
+procedure TEnderecoXML.loadFrom(value: IXMLDocument);
+var
+  vIndex: Integer;
+  root, node: IXMLNode;
+  list: IXMLNodeList;
+begin
+  try
+    root := value.DocumentElement.ChildNodes.FindNode('enderecos')
+      .ChildNodes.FindNode('endereco');
+
+    Self.FCEP := root.AttributeNodes.Nodes['cep'].Text;
+
+    list := root.ChildNodes;
+
+    for vIndex := 0 to list.Count - 1 do
+    begin
+      node := list[vIndex];
+
+      Case IndexStr(node.NodeName, ['cep', 'logradouro', 'complemento',
+        'bairro', 'localidade', 'uf']) of
+        0:
+          Self.FCEP := VarToStr(node.NodeValue);
+
+        1:
+          Self.Logradouro := VarToStr(node.NodeValue);
+
+        2:
+          Self.Complemento := VarToStr(node.NodeValue);
+
+        3:
+          Self.FBairro := VarToStr(node.NodeValue);
+
+        4:
+          Self.FLocalidade := VarToStr(node.NodeValue);
+
+        5:
+          Self.FUF := VarToStr(node.NodeValue);
+      end;
+    end;
+  except
+    on e: Exception do
+    begin
+      raise Exception.Create(Format('XML inválido! Menssagem do erro: %s',
+        [e.Message]));
+    end;
+  end;
+end;
+
+end.

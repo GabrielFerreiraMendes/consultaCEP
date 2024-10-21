@@ -76,6 +76,9 @@ end;
 
 function TViaCepComponent.getJSONByCEP: TJSONValue;
 begin
+  if SameText(Trim(FCEP), EmptyStr) then
+    raise Exception.Create('Cep inválido ou em branco!');
+
   if not Assigned(RESTClient) then
     RESTClient := TRESTClient.Create(URL_CEP);
 
@@ -201,7 +204,7 @@ end;
 
 procedure TViaCepComponent.setCEP(const Value: String);
 begin
-  if (Length(Value) <> 8) then
+  if ((not SameText(Trim(Value), EmptyStr)) and (Length(Value) <> 8)) then
     raise Exception.Create('CEP inválido');
 
   Self.FCEP := Value;
@@ -209,7 +212,7 @@ end;
 
 procedure TViaCepComponent.setCidade(const Value: String);
 begin
-  if (Length(Value) < 3) then
+  if ((not SameText(Trim(Value), EmptyStr)) and (Length(Value) < 3)) then
     raise Exception.Create('Cidade inválida!');
 
   Self.FCidade := Value;
@@ -217,7 +220,7 @@ end;
 
 procedure TViaCepComponent.setEndereco(const Value: String);
 begin
-  if (Length(Value) < 3) then
+  if ((not SameText(Trim(Value), EmptyStr)) and (Length(Value) < 3)) then
     raise Exception.Create('Endereço inválido!');
 
   Self.FEndereco := Value;
@@ -225,7 +228,7 @@ end;
 
 procedure TViaCepComponent.setUF(const Value: String);
 begin
-  if (Length(Value) <> 2) then
+  if ((not SameText(Trim(Value), EmptyStr)) and (Length(Value) <> 2)) then
     raise Exception.Create('UF inválida!');
 
   Self.FUF := Value;

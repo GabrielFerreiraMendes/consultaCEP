@@ -1,0 +1,17 @@
+unit endereco.JSON.model;
+
+interface
+
+uses files.interfaces, System.JSON, XMLDoc, Xml.XMLIntf, System.SysUtils,
+  System.StrUtils, System.Variants, endereco.model;
+
+type
+ TEnderecoJSON = class(TEndereco, TInterfacedObject, iFiles<TJSONObject>)
+
+     function exportTo(): T;
+    procedure loadFrom(value: T);
+ end;
+
+implementation
+
+end.

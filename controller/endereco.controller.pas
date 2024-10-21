@@ -2,74 +2,64 @@ unit endereco.controller;
 
 interface
 
-uses files.interfaces, endereco.model, FireDAC.Comp.Client, dtPrincipal,
-  System.SysUtils, System.JSON, endereco.service, System.MaskUtils;
+uses files.interfaces, FireDAC.Comp.Client, System.SysUtils, System.JSON,
+  endereco.service, System.MaskUtils, endereco.model;
 
 type
   TEnderecoController = class
   private
-    class procedure update(JSON: TJSONObject);
+    class procedure update(JSON: TJSONObject; connection: TFDConnection);
+    class procedure checkConnection(connection: TFDConnection);
   public
-    class procedure save(JSON: TJSONObject);
+    class procedure save(JSON: TJSONObject; connection: TFDConnection);
 
-    class function exists(cep: String): Boolean;
+    class function getByCEP(cep: String; connection: TFDConnection)
+      : TJSONObject;
 
-    class function getByCEP(cep: String): TJSONObject;
-    class function getByEndereco(uf, cidade, endereco: String): TJSONObject;
+    class function getByEndereco(uf, cidade, endereco: String;
+      connection: TFDConnection): TJSONObject;
   end;
 
 implementation
 
 { TEnderecoController }
 
-class function TEnderecoController.exists(cep: String): Boolean;
-var
-  qry: TFDQuery;
+class function TEnderecoController.getByCEP(cep: String;
+  connection: TFDConnection): TJSONObject;
 begin
-  qry := TFDQuery.Create(nil);
-
-  try
-    qry.Connection := dmPrincipal.FDConnection1;
-
-    qry.Close;
-    qry.SQL.Clear;
-    qry.SQL.Add
-      ('SELECT COUNT(*) as CT FROM consultacep.enderecos WHERE CEP = :CEP;');
-    qry.ParamByName('CEP').AsString := FormatMaskText('00000\-000;0;', cep);
-    qry.Open;
-
-    Result := (qry.FieldByName('CT').AsInteger > 0);
-  finally
-    FreeAndNil(qry);
-  end;
+  Self.checkConnection(connection);
+  Result := TEnderecoService.getByCEP(cep, connection);
 end;
 
-class function TEnderecoController.getByCEP(cep: String): TJSONObject;
+class function TEnderecoController.getByEndereco(uf, cidade, endereco: String;
+  connection: TFDConnection): TJSONObject;
 begin
-  Result := TEnderecoService.getByCEP(cep);
+  Self.checkConnection(connection);
+  Result := TEnderecoService.getByEndereco(uf, cidade, endereco, connection);
 end;
 
-class function TEnderecoController.getByEndereco(uf, cidade,
-  endereco: String): TJSONObject;
+class procedure TEnderecoController.checkConnection(connection: TFDConnection);
 begin
-  Result := TEnderecoService.getByEndereco(uf, cidade, endereco);
+  if not connection.Connected then
+    raise Exception.Create('Erro na conexão com o banco de dados.');
 end;
 
-class procedure TEnderecoController.save(JSON: TJSONObject);
+class procedure TEnderecoController.save(JSON: TJSONObject;
+  connection: TFDConnection);
 begin
+  Self.checkConnection(connection);
+  
   if not SameText(JSON.GetValue<String>('codigo'), EmptyStr) then
-  begin
-    TEnderecoController.update(JSON);
-
-    Exit;
-  end;
-
-  TEnderecoService.save(TEndereco.Create(JSON));
+    TEnderecoController.update(JSON, connection)
+  else
+    TEnderecoService.save(TEndereco.Create(JSON), connection);
 end;
 
-class procedure TEnderecoController.update(JSON: TJSONObject);
+class procedure TEnderecoController.update(JSON: TJSONObject;
+  connection: TFDConnection);
 begin
-  TEnderecoService.update(TEndereco.Create(JSON));
+  Self.checkConnection(connection);
+  TEnderecoService.update(TEndereco.Create(JSON), connection);
 end;
 
 end.

@@ -1,0 +1,16 @@
+unit endereco.XML.model;
+
+interface
+
+uses files.interfaces, System.JSON, XMLDoc, Xml.XMLIntf, System.SysUtils,
+  System.StrUtils, System.Variants, endereco.model;
+
+type
+  TEnderecoXML = class(TEndereco, iFiles<IXMLDocument>)
+    function exportTo(): IXMLDocument;
+    procedure loadFrom(value: IXMLDocument);
+  end;
+
+implementation
+
+end.

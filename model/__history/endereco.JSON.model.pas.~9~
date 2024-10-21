@@ -1,0 +1,48 @@
+unit endereco.JSON.model;
+
+interface
+
+uses files.interfaces, System.JSON, XMLDoc, Xml.XMLIntf, System.SysUtils,
+  System.StrUtils, System.Variants, endereco.model;
+
+type
+  TEnderecoJSON = class(TEndereco, iFiles<TJSONObject>)
+
+    function exportTo(): TJSONObject;
+    procedure loadFrom(value: TJSONObject);
+  end;
+
+implementation
+
+{ TEnderecoJSON }
+
+function TEnderecoJSON.exportTo: TJSONObject;
+begin
+
+end;
+
+procedure TEnderecoJSON.loadFrom(value: TJSONObject);
+begin
+  try
+    try
+      Self.FCodigo := value.GetValue<Integer>('codigo');
+    except
+      Self.FCodigo := 0;
+    end;
+
+    Self.FCEP := value.GetValue<String>('cep');
+    Self.FLogradouro := value.GetValue<String>('logradouro');
+    Self.FComplemento := value.GetValue<String>('complemento');
+    Self.FBairro := value.GetValue<String>('bairro');
+    Self.FLocalidade := value.GetValue<String>('localidade');
+    Self.FUF := value.GetValue<String>('uf');
+  except
+    on e: Exception do
+    begin
+      raise Exception.Create('JSON inválido!' + #13 + 'Mensagem de erro: ' +
+        e.Message);
+    end;
+  end;
+end;
+
+end.

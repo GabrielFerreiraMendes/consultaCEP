@@ -15,9 +15,6 @@ type
     FBairro: String;
     FLocalidade: String;
     FUF: String;
-
-    procedure fromJSON(JSON: TJSONObject);
-    procedure fromXML(Xml: IXMLDocument);
   public
     property Codigo: Integer read FCodigo write FCodigo;
     property CEP: String read FCEP write FCEP;
@@ -27,34 +24,18 @@ type
     property Localidade: String read FLocalidade write FLocalidade;
     property UF: String read FUF write FUF;
 
+    procedure loadFrom(JSON: TJSONObject); overload;
+    procedure loadFrom(Xml: IXMLDocument); overload;
     function toJSON(): TJSONObject;
-    function toXML(): TXMLDocument;
 
     constructor Create(JSON: TJSONObject); overload;
-    constructor Create(Xml: IXMLDocument); overload;
-    destructor Destroy;
   end;
 
 implementation
 
 { TEndereco }
 
-constructor TEndereco.Create(JSON: TJSONObject);
-begin
-  Self.fromJSON(JSON);
-end;
-
-constructor TEndereco.Create(Xml: IXMLDocument);
-begin
-  Self.fromXML(Xml);
-end;
-
-destructor TEndereco.Destroy;
-begin
-  inherited;
-end;
-
-procedure TEndereco.fromJSON(JSON: TJSONObject);
+procedure TEndereco.loadFrom(JSON: TJSONObject);
 begin
   try
     try
@@ -78,7 +59,12 @@ begin
   end;
 end;
 
-procedure TEndereco.fromXML(Xml: IXMLDocument);
+constructor TEndereco.Create(JSON: TJSONObject);
+begin
+  Self.loadFrom(JSON);
+end;
+
+procedure TEndereco.loadFrom(Xml: IXMLDocument);
 var
   vIndex: Integer;
   root, node: IXMLNode;
@@ -148,10 +134,4 @@ begin
     end;
   end;
 end;
-
-function TEndereco.toXML: TXMLDocument;
-begin
-
-end;
-
 end.
