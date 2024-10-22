@@ -31,12 +31,12 @@ O componente foi criado para realizar requisições ao webservice ViaCEP (https:
 - Cidade
 - Logradouro
 
-  E as funções:
-  - getJSONByCEP
-  - getJSONByEndereco
-  - getXMLByCEP
-  - getXMLByEndereco
+E as funções:
+- getJSONByCEP
+- getJSONByEndereco
+- getXMLByCEP
+- getXMLByEndereco
  
-    O componente foi criado para facilitar e trazer dinamicidade na execução das consultas ao web service, simplificando a configuração dos componentes de requisição REST nativos da IDE.
+O componente foi criado para facilitar e trazer dinamicidade na execução das consultas ao web service, simplificando a configuração dos componentes de requisição REST nativos da IDE.
 
   
