@@ -3,7 +3,8 @@ unit endereco.controller.tests;
 interface
 
 uses
-  DUnitX.TestFramework, endereco.controller, parametro.records, JSON;
+  DUnitX.TestFramework, endereco.controller, viacep.records, parametro.records,
+  JSON, endereco.exceptions;
 
 type
 
@@ -39,16 +40,16 @@ procedure TestTEnderecoController.TestParametroException;
 var
   param: TParametroRecord;
 begin
-  param.CEP := '';
-  param.Uf := 'GO';
-  param.Cidade := 'G';
-  param.endereco := 'R';
+  param.Key := 'GO/GYN/Rua Atlético Goianiense';
+  param.RequisitionType := 1;
+  param.ResultType := 0;
 
-  Assert.WillRaiseAny(
-    procedure()
+  Assert.WillRaise(
+    procedure
     begin
-      TEnderecoController.getByEndereco(param);
-    end);
+      TEnderecoController.findEncereco(param);
+    end, TCidadeException,
+    '');
 end;
 
 procedure TestTEnderecoController.Test2(const AValue1: Integer;

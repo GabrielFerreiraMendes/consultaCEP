@@ -10,7 +10,7 @@ uses
   parametro.records, XMLDoc, Xml.XMLIntf;
 
 type
-  TForm1 = class(TForm)
+  TfrmPrincipal = class(TForm)
     Panel1: TPanel;
     GroupBox2: TGroupBox;
     dbgEndereco: TDBGrid;
@@ -23,13 +23,14 @@ type
     procedure rgChaveClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
   private
+    procedure ApplyBestFit;
     { Private declarations }
   public
     { Public declarations }
   end;
 
 var
-  Form1: TForm1;
+  frmPrincipal: TfrmPrincipal;
 
 const
   KEY_CEP_TEXT: String = 'Informe o CEP sem os pontos (Exp: 01001000)';
@@ -40,116 +41,59 @@ implementation
 
 {$R *.dfm}
 
-procedure TForm1.btnConsultarClick(Sender: TObject);
+procedure TfrmPrincipal.btnConsultarClick(Sender: TObject);
 var
-  JSON: TJSONObject;
-  vStl: TStringList;
   param: TParametroRecord;
+  JSON: TJSONObject;
+  errorMessage: String;
 begin
-  vStl := TStringList.Create;
-  JSON := TJSONObject.Create;
-
   try
-    case rgChave.ItemIndex of
-      0:
-        begin
-          try
-            param.CEP := edtChave.Text;
-            param.Uf := EmptyStr;
-            param.Cidade := EmptyStr;
-            param.endereco := EmptyStr;
-            param.Connection := dmPrincipal.FDConnection1;
+    param.RequisitionType := rgChave.ItemIndex;
+    param.ResultType := rgRetornoConsulta.ItemIndex;
+    param.Connection := dmPrincipal.FDConnection1;
+    param.Key := edtChave.Text;
 
-            case rgRetornoConsulta.ItemIndex of
-              0:
-                param.AClass := TJSONObject;
+    JSON := TEnderecoController.findEncereco(param);
 
-              1:
-                param.AClass := TXMLDocument;
-            end;
-
-            JSON := TEnderecoController.getByCEP(param);
-            if not Assigned(JSON) then
-              exit;
-
-            TfrmCadastro.Execute(JSON);
-          except
-            on e: Exception do
-            begin
-              MessageDlg(Format('O CEP %s não consta na base de CEPs válidos!',
-                [edtChave.Text]), mtError, [mbOK], 0);
-            end;
-          end;
-        end;
-
-      1:
-        begin
-          try
-            vStl.Delimiter := '/';
-            vStl.DelimitedText := StringReplace(edtChave.Text, ' ', '+',
-              [rfReplaceAll, rfIgnoreCase]);
-
-            param.CEP := EmptyStr;
-            param.Uf := vStl[0];
-            param.Cidade := vStl[1];
-            param.endereco := vStl[2];
-            param.Connection := dmPrincipal.FDConnection1;
-
-            case rgRetornoConsulta.ItemIndex of
-              0:
-                param.AClass := TJSONObject;
-
-              1:
-                param.AClass := TXMLDocument;
-            end;
-
-            JSON := TEnderecoController.getByEndereco(param);
-
-            TfrmCadastro.Execute(JSON);
-          except
-            on e: Exception do
-            begin
-              MessageDlg
-                (Format('O endereço %s não consta na base de endereços válidos!',
-                [edtChave.Text]), mtError, [mbOK], 0);
-            end;
-          end;
-        end;
+    if Assigned(JSON) then
+    begin
+      TfrmCadastro.Execute(JSON);
+      dmPrincipal.FDQuery1.Refresh;
+      Self.ApplyBestFit;
+      dbgEndereco.SetFocus;
     end;
-
-    dmPrincipal.FDQuery1.Refresh;
-    dbgEndereco.SetFocus;
   finally
-    FreeAndNil(vStl);
     JSON.Free;
   end;
 end;
 
-procedure TForm1.FormShow(Sender: TObject);
+procedure TfrmPrincipal.ApplyBestFit;
 var
   vIndex: Integer;
-  vColumnValue: String;
+  vColumnValue: string;
 begin
-  dmPrincipal.FDQuery1.Open;
-
   { Aplica o melhor dimensionamento para as colunas
     baseado no primeiro registro ou no tamanho do header da coluna }
   for vIndex := 0 to dbgEndereco.Columns.Count - 1 do
   begin
     vColumnValue := dbgEndereco.Fields[vIndex].DisplayText;
-
     if Length(vColumnValue) < Length(dbgEndereco.Columns[vIndex].Title.Caption)
     then
       vColumnValue := dbgEndereco.Columns[vIndex].Title.Caption;
-
     dbgEndereco.Columns[vIndex].width := 50 + dbgEndereco.Canvas.TextWidth
       (vColumnValue);
   end;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  dmPrincipal.FDQuery1.Open;
+  Self.ApplyBestFit;
 
   rgChaveClick(Sender);
 end;
 
-procedure TForm1.rgChaveClick(Sender: TObject);
+procedure TfrmPrincipal.rgChaveClick(Sender: TObject);
 begin
   case rgChave.ItemIndex of
     0:

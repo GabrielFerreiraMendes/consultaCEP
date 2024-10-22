@@ -1,33 +1,42 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<test-results name="C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Win32\Debug\ConsultaCEP_Test.exe" total="5" errors="0" failures="2" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2024-10-22" time="23.149">
+<test-results name="C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Win32\Debug\ConsultaCEP_Test.exe" total="5" errors="0" failures="3" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2024-10-22" time="9.619">
   <culture-info current-culture="en" current-uiculture="en" />
-  <test-suite type="Assembly" name="ConsultaCEP_Test.exe" executed="true" result="Failure" success="False" time="23.149" asserts="0">
+  <test-suite type="Assembly" name="ConsultaCEP_Test.exe" executed="true" result="Failure" success="False" time="9.619" asserts="0">
     <results>
-        <test-suite type="Namespace" name="endereco" executed="true" result="Failure" success="False" time="23.148" asserts="0" >
+        <test-suite type="Namespace" name="endereco" executed="true" result="Failure" success="False" time="9.619" asserts="0" >
           <results>
-              <test-suite type="Fixture" name="TestTEnderecoController" executed="True" result="Success" success="True" time="23.120" >
+              <test-suite type="Fixture" name="TestTEnderecoController" executed="True" result="Failure" success="False" time="9.610" >
                 <results>
-                  <test-case name="Test1" executed="True" result="Success" success="True" time="17.038" asserts="0" />
-                  <test-case name="Test2.TestA" executed="True" result="Success" success="True" time="0.000" asserts="0" />
-                  <test-case name="Test2.TestB" executed="True" result="Success" success="True" time="0.000" asserts="0" />
-                </results>
-              </test-suite>
-              <test-suite type="Fixture" name="TestTEndereco" executed="True" result="Failure" success="False" time="0.029" >
-                <results>
-                  <test-case name="TestLoad.TestA" executed="True" result="Failure" success="False" time="0.026" asserts="0" >
+                  <test-case name="TestParametroException" executed="True" result="Failure" success="False" time="9.608" asserts="0" >
                     <failure>
                       <message>
-                        <![CDATA[ Expected [(TJSONObject @ 0496FDF0)] but got [(TJSONObject @ 0496F9B8)] ]]>
+                        <![CDATA[ Method did not throw any exceptions. ]]>
                       </message>
                       <stack-trace>
                         <![CDATA[  ]]>
                       </stack-trace>
                     </failure>
                   </test-case>
-                  <test-case name="TestLoad.TestB" executed="True" result="Failure" success="False" time="0.002" asserts="0" >
+                  <test-case name="Test2.TestA" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="Test2.TestB" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TestTEndereco" executed="True" result="Failure" success="False" time="0.009" >
+                <results>
+                  <test-case name="TestLoad.TestA" executed="True" result="Failure" success="False" time="0.006" asserts="0" >
                     <failure>
                       <message>
-                        <![CDATA[ Expected [(TJSONObject @ 04970048)] but got [(TJSONObject @ 0496F580)] ]]>
+                        <![CDATA[ Expected [(TJSONObject @ 00EEFFA0)] but got [(TJSONObject @ 00EEFE50)] ]]>
+                      </message>
+                      <stack-trace>
+                        <![CDATA[  ]]>
+                      </stack-trace>
+                    </failure>
+                  </test-case>
+                  <test-case name="TestLoad.TestB" executed="True" result="Failure" success="False" time="0.001" asserts="0" >
+                    <failure>
+                      <message>
+                        <![CDATA[ Expected [(TJSONObject @ 00EF01F8)] but got [(TJSONObject @ 00EEFBF8)] ]]>
                       </message>
                       <stack-trace>
                         <![CDATA[  ]]>

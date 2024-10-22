@@ -133,7 +133,7 @@
         <DCCReference Include="controller\endereco.controller.pas"/>
         <DCCReference Include="service\endereco.service.pas"/>
         <DCCReference Include="view\pricipal.view.pas">
-            <Form>Form1</Form>
+            <Form>frmPrincipal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="view\cadastro.view.pas">
@@ -141,6 +141,8 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="record\parametro.records.pas"/>
+        <DCCReference Include="record\viacep.records.pas"/>
+        <DCCReference Include="exception\endereco.exceptions.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

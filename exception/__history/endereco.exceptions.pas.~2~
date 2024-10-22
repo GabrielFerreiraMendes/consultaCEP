@@ -1,0 +1,12 @@
+unit endereco.exceptions;
+
+interface
+uses System.SysUtils;
+
+type
+ TFortmatoEnderecoException = class(Exception)
+
+ end;
+implementation
+
+end.

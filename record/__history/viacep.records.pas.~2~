@@ -1,0 +1,12 @@
+unit viacep.records;
+
+interface
+
+type
+  TViaCEPRecord = record
+
+  end;
+
+implementation
+
+end.

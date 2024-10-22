@@ -4,62 +4,61 @@ interface
 
 uses files.interfaces, FireDAC.Comp.Client, XMLDoc, Xml.XMLIntf,
   System.SysUtils, System.JSON, System.MaskUtils, System.Variants,
-  viaCEP.component, endereco.model, parametro.records;
+  viaCEP.component, endereco.model, viaCEP.records;
 
 type
   TEnderecoService = class
   public
-    class function getEnderecoDB(param: TParametroRecord): TJSONObject; static;
+    class function getEnderecoDB(param: TViaCEPRecord;
+      connection: TFDConnection): TJSONObject; static;
 
     class procedure save(obj: iFiles; connection: TFDConnection); static;
     class procedure update(obj: iFiles; connection: TFDConnection); static;
 
-    class function getCEPByJSON(param: TParametroRecord): TJSONObject; static;
+    class function getCEPByJSON(param: TViaCEPRecord): TJSONObject; static;
 
-    class function getCEPByXML(param: TParametroRecord): TJSONObject; static;
+    class function getCEPByXML(param: TViaCEPRecord): TJSONObject; static;
 
-    class function getEnderecoByJSON(param: TParametroRecord)
-      : TJSONObject; static;
+    class function getEnderecoByJSON(param: TViaCEPRecord): TJSONObject; static;
 
-    class function getEnderecoByXML(param: TParametroRecord): TJSONObject; static;
+    class function getEnderecoByXML(param: TViaCEPRecord): TJSONObject; static;
   end;
 
 implementation
 
 { TEnderecoService }
-class function TEnderecoService.getEnderecoDB(param: TParametroRecord)
-  : TJSONObject;
+class function TEnderecoService.getEnderecoDB(param: TViaCEPRecord;
+  connection: TFDConnection): TJSONObject;
 var
   qry: TFDQuery;
 begin
-  result := nil;
+  Result := nil;
   qry := TFDQuery.Create(nil);
 
   try
-    qry.connection := param.connection;
+    qry.connection := connection;
 
     qry.Close;
     qry.SQL.Clear;
     qry.SQL.Add('SELECT *             ');
     qry.SQL.Add('  FROM ENDERECOS E   ');
-    qry.SQL.Add(' WHERE 1 = 1         ');
 
     if not SameText(Trim(param.cep), EmptyStr) then
     begin
-      qry.SQL.Add('   AND E.CEP = :CEP  ');
+      qry.SQL.Add(' WHERE E.CEP = :CEP  ');
       qry.ParamByName('CEP').AsString := param.cep;
     end;
 
     if (not SameText(Trim(param.uf), EmptyStr)) and
       (not SameText(Trim(param.cidade), EmptyStr)) and
-      (not SameText(Trim(param.endereco), EmptyStr)) then
+      (not SameText(Trim(param.Logradouro), EmptyStr)) then
     begin
-      qry.SQL.Add('   AND E.UF = :UF                    ');
-      qry.SQL.Add('   AND E.LOCALIDADE = :LOCALIDADE    ');
+      qry.SQL.Add(' WHERE E.UF = :UF                  ');
+      qry.SQL.Add('   AND E.LOCALIDADE = :LOCALIDADE  ');
       qry.SQL.Add('   AND E.LOGRADOURO = :LOGRADOURO  ');
       qry.ParamByName('UF').AsString := param.uf;
       qry.ParamByName('LOCALIDADE').AsString := param.cidade;
-      qry.ParamByName('LOGRADOURO').AsString := StringReplace(param.endereco,
+      qry.ParamByName('LOGRADOURO').AsString := StringReplace(param.Logradouro,
         '+', ' ', [rfReplaceAll, rfIgnoreCase]);
     end;
 
@@ -67,14 +66,14 @@ begin
 
     if not qry.IsEmpty then
     begin
-      result := TJSONObject.Create;
-      result.AddPair('codigo', qry.FieldByName('codigo').AsString);
-      result.AddPair('cep', qry.FieldByName('cep').AsString);
-      result.AddPair('logradouro', qry.FieldByName('logradouro').AsString);
-      result.AddPair('complemento', qry.FieldByName('complemento').AsString);
-      result.AddPair('bairro', qry.FieldByName('bairro').AsString);
-      result.AddPair('localidade', qry.FieldByName('localidade').AsString);
-      result.AddPair('uf', qry.FieldByName('uf').AsString);
+      Result := TJSONObject.Create;
+      Result.AddPair('codigo', qry.FieldByName('codigo').AsString);
+      Result.AddPair('cep', qry.FieldByName('cep').AsString);
+      Result.AddPair('logradouro', qry.FieldByName('logradouro').AsString);
+      Result.AddPair('complemento', qry.FieldByName('complemento').AsString);
+      Result.AddPair('bairro', qry.FieldByName('bairro').AsString);
+      Result.AddPair('localidade', qry.FieldByName('localidade').AsString);
+      Result.AddPair('uf', qry.FieldByName('uf').AsString);
     end
   finally
     qry.Close;
@@ -82,8 +81,7 @@ begin
   end;
 end;
 
-class function TEnderecoService.getCEPByJSON(param: TParametroRecord)
-  : TJSONObject;
+class function TEnderecoService.getCEPByJSON(param: TViaCEPRecord): TJSONObject;
 var
   JSON: TJSONObject;
   vViaCep: TViaCepComponent;
@@ -93,14 +91,13 @@ begin
   try
     vViaCep.cep := param.cep;
 
-    result := TJSONObject(vViaCep.getJSONByCEP);
+    Result := TJSONObject(vViaCep.getJSONByCEP);
   finally
     FreeAndNil(vViaCep);
   end;
 end;
 
-class function TEnderecoService.getCEPByXML(param: TParametroRecord)
-  : TJSONObject;
+class function TEnderecoService.getCEPByXML(param: TViaCEPRecord): TJSONObject;
 var
   JSON: TJSONObject;
   vViaCep: TViaCepComponent;
@@ -110,13 +107,14 @@ begin
   try
     vViaCep.cep := param.cep;
 
-    result := TEndereco.Create(TXMLDocument(vViaCep.getXMLByCEP)).toJSON;
+    Result := TEndereco.Create(TXMLDocument(vViaCep.getXMLByCEP)).toJSON;
   finally
     FreeAndNil(vViaCep);
   end;
 end;
 
-class function TEnderecoService.getEnderecoByJSON(param: TParametroRecord): TJSONObject;
+class function TEnderecoService.getEnderecoByJSON(param: TViaCEPRecord)
+  : TJSONObject;
 var
   vViaCep: TViaCepComponent;
   JSON: TJSONObject;
@@ -125,9 +123,9 @@ begin
   vViaCep := TViaCepComponent.Create(nil);
 
   try
-    vViaCep.uf := param.Uf;
-    vViaCep.cidade := param.Cidade;
-    vViaCep.endereco := param.Endereco;
+    vViaCep.uf := param.uf;
+    vViaCep.cidade := param.cidade;
+    vViaCep.endereco := param.Logradouro;
 
     JSON := TJSONObject(vViaCep.getJSONByEndereco);
 
@@ -137,13 +135,14 @@ begin
       usuario possa selecionar o endereço dentre os retornados }
     JSONArray := TJSONValue(JSON) as TJSONArray;
 
-    result := TJSONObject(JSONArray[0]);
+    Result := TJSONObject(JSONArray[0]);
   finally
     FreeAndNil(vViaCep);
   end;
 end;
 
-class function TEnderecoService.getEnderecoByXML(param: TParametroRecord): TJSONObject;
+class function TEnderecoService.getEnderecoByXML(param: TViaCEPRecord)
+  : TJSONObject;
 var
   vViaCep: TViaCepComponent;
   teste: String;
@@ -151,15 +150,15 @@ begin
   vViaCep := TViaCepComponent.Create(nil);
 
   try
-    vViaCep.uf := param.Uf;
-    vViaCep.cidade := param.Cidade;
-    vViaCep.endereco := param.Endereco;
+    vViaCep.uf := param.uf;
+    vViaCep.cidade := param.cidade;
+    vViaCep.endereco := param.Logradouro;
 
     { Como a consulta por endereco pode retornar mais de um endereço,
       será utilizado um registro da lista. Como sugestão futura, criar
       mecanismo para que o usuario possa selecionar o endereço dentre
       os retornados }
-    result := TEndereco.Create(TXMLDocument(vViaCep.getXMLByEndereco)).toJSON;
+    Result := TEndereco.Create(TXMLDocument(vViaCep.getXMLByEndereco)).toJSON;
   finally
     FreeAndNil(vViaCep);
   end;

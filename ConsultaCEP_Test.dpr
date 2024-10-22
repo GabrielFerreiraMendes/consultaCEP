@@ -19,7 +19,9 @@ uses
   endereco.controller in 'controller\endereco.controller.pas',
   endereco.service in 'service\endereco.service.pas',
   parametro.records in 'record\parametro.records.pas',
-  endereco.controller.tests in 'test\endereco.controller.tests.pas';
+  endereco.controller.tests in 'test\endereco.controller.tests.pas',
+  viacep.records in 'record\viacep.records.pas',
+  endereco.exceptions in 'exception\endereco.exceptions.pas';
 
 { keep comment here to protect the following conditional from being removed by the IDE when adding a unit }
 {$IFNDEF TESTINSIGHT}

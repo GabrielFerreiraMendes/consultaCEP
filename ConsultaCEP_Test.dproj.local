@@ -3,10 +3,10 @@
 	<Transactions>
     <Transaction>2024/10/03 12:23:53.000.881,=C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/10/21 18:43:05.000.949,=C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2024/10/21 18:44:48.000.139,C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\test\endereco.tests.pas</Transaction>
+    <Transaction>2024/10/21 18:44:48.000.139,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\test\endereco.tests.pas=C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
     <Transaction>2024/10/21 18:45:14.000.213,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\model\endereco.model.pas</Transaction>
     <Transaction>2024/10/21 18:45:30.000.428,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\interface\files.interfaces.pas</Transaction>
-    <Transaction>2024/10/21 18:47:47.000.822,C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\ConsultaCEP_Test.dproj</Transaction>
+    <Transaction>2024/10/21 18:47:47.000.822,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\ConsultaCEP_Test.dproj=C:\Users\Gabriel\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2024/10/21 18:48:31.000.961,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\model\endereco.model.pas=</Transaction>
     <Transaction>2024/10/21 18:48:38.000.790,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\model\endereco.model.pas</Transaction>
     <Transaction>2024/10/22 00:22:58.000.742,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\controller\endereco.controller.pas</Transaction>
@@ -14,7 +14,9 @@
     <Transaction>2024/10/22 00:23:25.000.063,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\service\endereco.service.pas</Transaction>
     <Transaction>2024/10/22 00:24:39.000.466,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\record\parametro.records.pas=</Transaction>
     <Transaction>2024/10/22 00:24:46.000.259,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\record\parametro.records.pas</Transaction>
-    <Transaction>2024/10/22 00:25:50.142,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
-    <Transaction>2024/10/22 00:26:40.899,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\test\endereco.controller.tests.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/22 00:25:50.000.142,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas</Transaction>
+    <Transaction>2024/10/22 00:26:40.000.899,C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\Unit1.pas=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\test\endereco.controller.tests.pas</Transaction>
+    <Transaction>2024/10/22 16:31:00.000.936,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\record\viacep.records.pas</Transaction>
+    <Transaction>2024/10/22 16:31:34.000.377,=C:\Users\Gabriel\OneDrive\Documentos\consultaCEP\exception\endereco.exceptions.pas</Transaction>
   </Transactions>
 </BorlandProject>

@@ -1,0 +1,20 @@
+unit endereco.exceptions;
+
+interface
+uses System.SysUtils;
+
+type
+ TFortmatoEnderecoException = class(Exception)
+   public
+   constructor Create();
+ end;
+implementation
+
+{ TFortmatoEnderecoException }
+
+constructor TFortmatoEnderecoException.Create;
+begin
+  Self.Message := 'Formato de endereço inválido!';
+end;
+
+end.

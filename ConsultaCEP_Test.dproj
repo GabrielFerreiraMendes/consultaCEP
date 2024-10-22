@@ -95,6 +95,8 @@
         <DCCReference Include="service\endereco.service.pas"/>
         <DCCReference Include="record\parametro.records.pas"/>
         <DCCReference Include="test\endereco.controller.tests.pas"/>
+        <DCCReference Include="record\viacep.records.pas"/>
+        <DCCReference Include="exception\endereco.exceptions.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

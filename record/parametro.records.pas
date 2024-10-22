@@ -6,12 +6,10 @@ uses FireDAC.Comp.Client;
 
 type
   TParametroRecord = record
-    CEP: String;
-    Uf: String;
-    Cidade: String;
-    Endereco: String;
+    RequisitionType: Integer;
+    ResultType: Integer;
+    Key: String;
     Connection: TFDConnection;
-    AClass: TClass;
   end;
 
 implementation

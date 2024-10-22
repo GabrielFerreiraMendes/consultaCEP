@@ -30,7 +30,6 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure edtCepExit(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     FMainObject: TEndereco;
     procedure initForm(JSON: TJSONObject);
@@ -56,6 +55,14 @@ end;
 
 procedure TfrmCadastro.btnSalvarClick(Sender: TObject);
 begin
+  edtCodigo.Text := MainObject.Codigo.ToString;
+  MainObject.CEP := StringReplace(edtCep.Text, '', '-', []);
+  MainObject.Logradouro := edtLogradouro.Text;
+  MainObject.Complemento := edtComplemento.Text;
+  MainObject.Bairro := edtBairro.Text;
+  MainObject.Localidade := edtLocalidade.Text;
+  MainObject.UF := edtUf.Text;
+
   TEnderecoController.save(MainObject, dmPrincipal.FDConnection1);
   Self.Close;
 end;
@@ -84,11 +91,6 @@ begin
   finally
     FreeAndNil(form);
   end;
-end;
-
-procedure TfrmCadastro.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  FreeAndNil(MainObject);
 end;
 
 procedure TfrmCadastro.initForm(JSON: TJSONObject);

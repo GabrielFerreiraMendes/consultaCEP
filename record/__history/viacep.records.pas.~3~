@@ -1,0 +1,15 @@
+unit viacep.records;
+
+interface
+
+type
+  TViaCEPRecord = record
+    CEP: String;
+    Uf: String;
+    Cidade: String;
+    Endereco: String;
+  end;
+
+implementation
+
+end.
