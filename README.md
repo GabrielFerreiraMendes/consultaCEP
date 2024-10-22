@@ -1,4 +1,13 @@
-# consultaCEP
+# Consulta CEP
+
+ O Consulta CEP é uma aplicação criada em Delphi apenas com componentes nativos da linguagem. Essa aplicação tem como objetivo demonstrar a criação de componentes, testes unitários, assim como serialização e desserialização de arquivos JSON e XML e, para isso, o  Consulta CEP realiza o cadastro e edição de endereços.
+
+ Uma vez que o endereço existe na base, o usuário tem a possibilidade de atualiza-lo. Mas quando o mesmo ainda não tiver sido cadastrado, a aplicação irá consumir o webservice da ViaCEP para localizar o CEP ou endereço, conforme explicações de uso em sua página. Aqui são permitidas duas maneiras de consulta:
+ - CEP
+ - Endereço
+
+ Por CEP basta informar o CEP sem as máscara (exp: '91420270'), já endereço é necessário concatenar as informações de UF/CIDADE/LOGRADOURO (exp: 'ws/RS/Porto Alegre/Domingos'). Para ambos o cenários é necessário especificar também o tipo de retorno que se espera (JSON ou XML) existe um campo em tela onde o usuário pode escolher, porém essa seleção não interfere no resultado final.
+
 
 ## Banco de dados
 - MYSQL
