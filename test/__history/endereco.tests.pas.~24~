@@ -1,0 +1,72 @@
+unit endereco.tests;
+
+interface
+
+uses
+  DUnitX.TestFramework, endereco.model, SysUtils, JSON;
+
+type
+
+  [TestFixture]
+  ConsultaCEP = class
+  private
+    FEndereco: TEndereco;
+    FJSON: TJSONObject;
+  public
+    [Setup]
+    procedure Setup;
+    [TearDown]
+    procedure TearDown;
+    // Sample Methods
+    // Simple single Test
+    [Test]
+    [TestCase('TestA',
+      '0,74565006,Rua Vitória Régia,teste A,Panorama Parque, Goiânia, GO')]
+    procedure TestLoad(codigo: Integer; cep, logradouro, complemento, bairro,
+      localidade, uf: String);
+    // Test with TestCase Attribute to supply parameters.
+    [Test]
+    [TestCase('TestA', '1,2')]
+    [TestCase('TestB', '3,4')]
+    procedure Test2(const AValue1: Integer; const AValue2: Integer);
+  end;
+
+implementation
+
+procedure ConsultaCEP.Setup;
+begin
+  FEndereco := TEndereco.Create;
+  FJSON := TJSONObject.Create;
+end;
+
+procedure ConsultaCEP.TearDown;
+begin
+  FJSON.Free;
+  FreeAndNil(FEndereco);
+end;
+
+procedure ConsultaCEP.TestLoad(codigo: Integer; cep, logradouro, complemento,
+  bairro, localidade, uf: String);
+begin
+  FJSON.AddPair('codigo', Codigo);
+  FJSON.AddPair('cep', CEP);
+  FJSON.AddPair('logradouro', Logradouro);
+  FJSON.AddPair('complemento', Complemento);
+  FJSON.AddPair('bairro', Bairro);
+  FJSON.AddPair('localidade', Localidade);
+  FJSON.AddPair('uf', UF);
+
+  FEndereco.loadFrom(FJSON);
+
+  Assert.AreEqual(FEndereco.Codigo, FJSON.GetValue<Integer>('codigo'));
+end;
+
+procedure ConsultaCEP.Test2(const AValue1: Integer; const AValue2: Integer);
+begin
+end;
+
+initialization
+
+TDUnitX.RegisterTestFixture(ConsultaCEP);
+
+end.

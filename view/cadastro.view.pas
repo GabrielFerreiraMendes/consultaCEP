@@ -30,10 +30,10 @@ type
     procedure btnSalvarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure edtCepExit(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     FMainObject: TEndereco;
-    procedure setFields(JSON: TJSONObject);
-    function getFields: TJSONObject;
+    procedure initForm(JSON: TJSONObject);
     property MainObject: TEndereco read FMainObject write FMainObject;
     { Private declarations }
   public
@@ -56,7 +56,7 @@ end;
 
 procedure TfrmCadastro.btnSalvarClick(Sender: TObject);
 begin
-  TEnderecoController.save(Self.getFields, dmPrincipal.FDConnection1);
+  TEnderecoController.save(MainObject, dmPrincipal.FDConnection1);
   Self.Close;
 end;
 
@@ -79,43 +79,31 @@ begin
   form := TfrmCadastro.Create(nil);
 
   try
-    form.setFields(JSON);
+    form.initForm(JSON);
     form.ShowModal;
   finally
     FreeAndNil(form);
   end;
 end;
 
-function TfrmCadastro.getFields: TJSONObject;
+procedure TfrmCadastro.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  Result := TJSONObject.Create;
-  Result.AddPair('codigo', edtCodigo.Text);
-  Result.AddPair('cep', edtCep.Text);
-  Result.AddPair('logradouro', edtLogradouro.Text);
-  Result.AddPair('complemento', edtComplemento.Text);
-  Result.AddPair('bairro', edtBairro.Text);
-  Result.AddPair('localidade', edtLocalidade.Text);
-  Result.AddPair('uf', edtUf.Text);
+  FreeAndNil(MainObject);
 end;
 
-procedure TfrmCadastro.setFields(JSON: TJSONObject);
+procedure TfrmCadastro.initForm(JSON: TJSONObject);
 var
   vCEP: String;
 begin
-  try
-    edtCodigo.Text := JSON.GetValue<String>('codigo');
-  except
-    edtCodigo.Text := EmptyStr;
-  end;
+  Self.MainObject := TEndereco.Create(JSON);
 
-  vCEP := varToStrDef(JSON.GetValue<String>('cep'), EmptyStr);
-
-  edtCep.Text := StringReplace(vCEP, '-', '', [rfReplaceAll, rfIgnoreCase]);
-  edtLogradouro.Text := JSON.GetValue<String>('logradouro');
-  edtComplemento.Text := JSON.GetValue<String>('complemento');
-  edtBairro.Text := JSON.GetValue<String>('bairro');
-  edtLocalidade.Text := JSON.GetValue<String>('localidade');
-  edtUf.Text := JSON.GetValue<String>('uf');
+  edtCodigo.Text := MainObject.Codigo.ToString;
+  edtCep.Text := StringReplace(MainObject.CEP, '-', '', []);
+  edtLogradouro.Text := MainObject.Logradouro;
+  edtComplemento.Text := MainObject.Complemento;
+  edtBairro.Text := MainObject.Bairro;
+  edtLocalidade.Text := MainObject.Localidade;
+  edtUf.Text := MainObject.UF;
 end;
 
 end.

@@ -11,6 +11,7 @@ object frmCadastro: TfrmCadastro
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poMainFormCenter
+  OnClose = FormClose
   TextHeight = 15
   object Panel1: TPanel
     Left = 0

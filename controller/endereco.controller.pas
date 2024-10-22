@@ -9,10 +9,10 @@ uses files.interfaces, FireDAC.Comp.Client, System.SysUtils, System.JSON,
 type
   TEnderecoController = class
   private
-    class procedure update(JSON: TJSONObject; connection: TFDConnection);
+    class procedure update(endereco: TEndereco; connection: TFDConnection);
     class procedure checkConnection(connection: TFDConnection);
   public
-    class procedure save(JSON: TJSONObject; connection: TFDConnection);
+    class procedure save(endereco: TEndereco; connection: TFDConnection);
 
     class function getByCEP(param: TParametroRecord): TJSONObject;
 
@@ -53,12 +53,12 @@ end;
 class function TEnderecoController.getByEndereco(param: TParametroRecord)
   : TJSONObject;
 begin
+  if (Length(param.Cidade) <= 3) or (Length(param.endereco) <= 3) then
+    Abort;
+
   Self.checkConnection(param.connection);
 
   Result := TEnderecoService.getEnderecoDB(param);
-
-  if (Length(param.Cidade) < 3) or (Length(param.endereco) < 3) then
-    Abort;
 
   if Assigned(Result) and
     (MessageDlg('O endereço informado consta na lista de endereços cadastrados.'
@@ -85,22 +85,22 @@ begin
     raise Exception.Create('Erro na conexão com o banco de dados.');
 end;
 
-class procedure TEnderecoController.save(JSON: TJSONObject;
+class procedure TEnderecoController.save(endereco: TEndereco;
   connection: TFDConnection);
 begin
   Self.checkConnection(connection);
 
-  if not SameText(JSON.GetValue<String>('codigo'), EmptyStr) then
-    TEnderecoController.update(JSON, connection)
+  if (endereco.Codigo <= 0) then
+    TEnderecoController.update(endereco, connection)
   else
-    TEnderecoService.save(TEndereco.Create(JSON), connection);
+    TEnderecoService.save(endereco, connection);
 end;
 
-class procedure TEnderecoController.update(JSON: TJSONObject;
+class procedure TEnderecoController.update(endereco: TEndereco;
   connection: TFDConnection);
 begin
   Self.checkConnection(connection);
-  TEnderecoService.update(TEndereco.Create(JSON), connection);
+  TEnderecoService.update(endereco, connection);
 end;
 
 end.
